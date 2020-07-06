@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/editor.svg</file>
+        <file>image/copy.svg</file>
+        <file>image/delete.svg</file>
+        <file>image/button-close-hover-click-two.svg</file>
+        <file>image/button-close-hover-click-add-background-one.svg</file>
+        <file>image/button-close-default-add-background-three.svg</file>
+        <file>image/user-trash.png</file>
+        <file>qss/sidebarClipboard.css</file>
+        <file>qss/sideBarEditArea.css</file>
+        <file>qss/sideBarSearchArea.css</file>
+        <file>translations/test_zh_CN.qm</file>
+        <file>translations/qt_zh_CN.qm</file>
+        <file>translations/widgets.qm</file>
+        <file>image/kylin-feedback.png</file>
+        <file>image/kylin-alarm-clock.svg</file>
+        <file>image/lock.png</file>
+        <file>image/cancel-lock.png</file>
+    </qresource>
+</RCC>

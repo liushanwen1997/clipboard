@@ -1,0 +1,55 @@
+/* 编辑区域 */
+QGroupBox#EditBox {
+    width:362px;
+    height:200px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    margin-left: 3px;
+    margin-top: 45px;
+    padding-top:0px;
+    padding-bottom:0px;
+    padding-left:0px;
+    padding-right:0px;
+    background:rgba(255,255,255,0.06);
+    opacity:0.06;
+    border-radius:3px;
+    border: 0px solid rgba(255,255,0,1);
+
+    font-size:20px;
+    font-family:Noto Sans CJK SC;
+    font-weight:400;
+    color:rgba(255,255,255,1);
+    line-height:40px;
+    opacity:0.91;
+}
+
+/* 操作区域，确认取消 */
+QGroupBox#OperationBox {
+    width:362px;
+    height:40px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 20px;
+    margin-top: 0px;
+    border-radius:0px;
+    padding-top:0px;
+    padding-bottom:0px;
+    color:rgba(255,255,255,1);
+    border: 0px;
+}
+
+/* 编辑WIdget的编辑区域 */
+QGroupBox#EditBox>QTextEdit#EditingArea {
+    font-size:14px;
+    font-weight:400;
+    font-family:Noto Sans CJK SC;
+    color:rgba(255,255,255,1);
+    width:340px;
+    height:180px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    background-color:rgba(255,255,255,0.01);
+    border: 0px solid rgba(255,0,0,1);
+}
