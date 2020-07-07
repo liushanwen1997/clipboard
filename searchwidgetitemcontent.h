@@ -31,7 +31,6 @@
 #include "customstyle.h"
 #include "customstyle_search_pushbutton.h"
 #include "clipboardwidgetentry.h"
-#include "clipboardsignal.h"
 #define  SIDEBAR_SEARCH_QSS_PATH  ":/qss/sideBarSearchArea.css"
 class SearchWidgetItemContent:public QWidget
 {

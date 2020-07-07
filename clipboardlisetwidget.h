@@ -19,7 +19,6 @@
 #define CLIPBOARDLISETWIDGET_H
 #include <QListWidget>
 #include <QMouseEvent>
-#include "clipboardsignal.h"
 
 class ClipBoardLisetWidget :public QListWidget
 {

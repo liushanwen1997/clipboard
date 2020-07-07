@@ -38,7 +38,6 @@
 #include <QDialog>
 #include "customstyle.h"
 #include "customstyle_pushbutton_2.h"
-#include "clipboardsignal.h"
 #define  SIDEBAR_EDITAREA_QSS_PATH  ":/qss/sideBarEditArea.css"
 class EditorWidget :public QDialog
 {

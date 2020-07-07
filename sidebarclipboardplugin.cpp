@@ -26,7 +26,7 @@
 #include <QTimer>
 #include <QStyleFactory>
 #include <QTextFrame>
-ClipboardSignal *globalClipboardSignal;
+
 SidebarClipboardPlugin::SidebarClipboardPlugin(QWidget *parent)
 {
     Q_UNUSED(parent);
@@ -69,6 +69,9 @@ SidebarClipboardPlugin::SidebarClipboardPlugin(QWidget *parent)
 
     trayIcon->setVisible(true);
 
+    this->setWindowIcon(QIcon::fromTheme("kylin-tool-box", QIcon(":/image/kylin-alarm-clock.svg")));
+
+    this->setWindowTitle(tr("剪贴板"));
     /* 在点击确认键后判断是否有勾选不再提示这一功能 */
     connect(InternalSignal, &ClipBoardInternalSignal::CheckBoxSelectedSignal, this, [=]() {
         m_bPromptBoxBool = false;

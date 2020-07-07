@@ -30,7 +30,6 @@
 #include <QPainter>
 #include <QFile>
 #include <QRadioButton>
-#include "clipboardsignal.h"
 #include "clipBoardInternalSignal.h"
 #define  CLEAN_PNG_PATH  ":/image/user-trash.png"
 #define  SIDEBAR_HINT_QSS_PATH  ":/qss/HintBoxWidget.css"

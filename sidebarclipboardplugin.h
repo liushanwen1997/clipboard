@@ -45,12 +45,9 @@
 #include <QMenu>
 #include <QDateTime>
 #include "outwidget.h"
-#include "clipboardpluginiface.h"
 #include "clipboardwidgetentry.h"
-#include "sidebarclipboardsignal.h"
 #include "searchwidgetitemcontent.h"
 #include "editorwidget.h"
-#include "clipboardsignal.h"
 #include "clipboardlisetwidget.h"
 #include "cleanpromptbox.h"
 #include "clipBoardInternalSignal.h"
@@ -108,7 +105,6 @@ public:
 
     QVBoxLayout     *m_pClipboardLaout;
     QClipboard      *m_pSidebarClipboard;
-    ClipboardSignal *m_pClipSignal;
     SearchWidgetItemContent *m_pSearchArea;
     QMimeData mineData;
 

@@ -186,7 +186,7 @@ void ClipboardWidgetEntry::initdataDisplayArea()
      m_pHLayout->setContentsMargins(0,0,0,0);
      m_pHLayout->addItem(new QSpacerItem(10,20));
      m_pHLayout->addWidget(m_pTimeLabel);
-     m_pHLayout->addItem(new QSpacerItem(276, 34));
+     m_pHLayout->addItem(new QSpacerItem(270, 34, QSizePolicy::Expanding));
      m_pHLayout->addWidget(m_pInforLabel);
      m_pHLayout->addWidget(m_pLockButton);
      m_pHLayout->addWidget(m_pCancelLockButton);

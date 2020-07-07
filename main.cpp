@@ -9,12 +9,11 @@ int main(int argc, char *argv[])
     a.setAttribute(Qt::AA_UseHighDpiPixmaps,true);
 #endif
     SidebarClipboardPlugin clipboard;
-    clipboard.setWindowFlags(Qt::FramelessWindowHint);
+//    clipboard.setWindowFlags(Qt::FramelessWindowHint);
     clipboard.setAttribute(Qt::WA_TranslucentBackground);
     clipboard.setFixedSize(360, 460);
     clipboard.show();
     clipboard.move(850, 300);
     KWindowEffects::enableBlurBehind(clipboard.winId(), true);
     return a.exec();
-
 }

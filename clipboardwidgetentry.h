@@ -34,7 +34,6 @@
 #include <QMouseEvent>
 #include <QTextEdit>
 #include <QStackedLayout>
-#include "clipboardsignal.h"
 #include "clipBoardInternalSignal.h"
 #include "pixmaplabel.h"
 #include "elidedlabel.h"

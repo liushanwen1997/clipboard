@@ -35,7 +35,7 @@ SOURCES += \
     customstyle_search_pushbutton.cpp \
     outwidget.cpp \
     pixmaplabel.cpp \
-        sidebarclipboardplugin.cpp \
+    sidebarclipboardplugin.cpp \
     clipboardwidgetentry.cpp \
     editorwidget.cpp \
     searchwidgetitemcontent.cpp \
@@ -44,8 +44,6 @@ SOURCES += \
     previewimagewidget.cpp \
     main.cpp \
     datadisplayentry.cpp
-
-INCLUDEPATH    += ../../plugin-interface ../../plugin-signals
 
 HEADERS += \
     elidedlabel.h \
@@ -57,12 +55,11 @@ HEADERS += \
     customstyle_search_pushbutton.h \
     outwidget.h \
     pixmaplabel.h \
-        sidebarclipboardplugin.h \
+    sidebarclipboardplugin.h \
     clipboardwidgetentry.h \
     clipboardsignal.h \
     editorwidget.h \
     searchwidgetitemcontent.h \
-    ../../plugin-signals/sidebarclipboardsignal.h \
     clipboardlisetwidget.h \
     clipbaordstructoriginaldata.h \
     clipboarddb.h \
