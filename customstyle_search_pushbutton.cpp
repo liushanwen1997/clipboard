@@ -78,7 +78,7 @@ void customstyle_search_pushbutton::drawPrimitive(QStyle::PrimitiveElement eleme
                     painter->setRenderHint(QPainter::Antialiasing,true);
                     painter->setPen(Qt::NoPen);
                     QColor color(255,255,255);
-                    painter->setOpacity(0.12);
+                    painter->setOpacity(0.08);
                     painter->setBrush(color);
                     painter->drawRoundedRect(option->rect, 4, 4);
                     painter->restore();
@@ -88,7 +88,7 @@ void customstyle_search_pushbutton::drawPrimitive(QStyle::PrimitiveElement eleme
                     painter->setRenderHint(QPainter::Antialiasing,true);
                     painter->setPen(Qt::NoPen);
                     QColor color(255,255,255);
-                    painter->setOpacity(0.12);
+                    painter->setOpacity(0.2);
                     painter->setBrush(color);
                     painter->drawRoundedRect(option->rect, 4, 4);
                     painter->restore();

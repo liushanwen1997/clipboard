@@ -504,8 +504,6 @@ QString SidebarClipboardPlugin::setElidedString(QString text, ClipboardWidgetEnt
          }
      }
      return formatBody;
-
-
 }
 
 void SidebarClipboardPlugin::getPixmapListFileIcon(QString UrlText, pixmapLabel *pixmapListclass)

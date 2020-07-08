@@ -78,7 +78,7 @@ void customstyle_clean_pushbutton::drawPrimitive(QStyle::PrimitiveElement elemen
 //                    QColor color(255,255,255,21);
 //                    painter->setBrush(color);
                     painter->setBrush(option->palette.color(QPalette::WindowText));
-                    painter->setOpacity(0.12);
+                    painter->setOpacity(0.08);
                     painter->drawRoundedRect(option->rect, 4, 4);
                     painter->restore();
                 } else {
@@ -88,7 +88,7 @@ void customstyle_clean_pushbutton::drawPrimitive(QStyle::PrimitiveElement elemen
 //                    QColor color(255,255,255,51);
 //                    painter->setBrush(color);
                     painter->setBrush(option->palette.color(QPalette::WindowText));
-                    painter->setOpacity(0.12);
+                    painter->setOpacity(0.2);
                     painter->drawRoundedRect(option->rect, 4, 4);
                     painter->restore();
                 }
