@@ -159,6 +159,27 @@ void SidebarClipboardPlugin::showEvent(QShowEvent *event)
     QWidget::showEvent(event);
 }
 
+void SidebarClipboardPlugin::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    /* 获取当前剪贴板中字体的颜色，作为背景色；
+     * 白字体 --> 黑背景
+     * 黑字体 --> 白字体
+    */
+    p.setBrush(opt.palette.color(QPalette::Base));
+    p.setBrush(QBrush(QColor("#131314")));
+    p.setOpacity(0.7);
+    p.setPen(Qt::NoPen);
+
+    p.setRenderHint(QPainter::Antialiasing);                        //反锯齿
+    p.drawRoundedRect(opt.rect, 7, 7);
+    p.drawRect(opt.rect);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    QWidget::paintEvent(e);
+}
+
 /* 初始化图标 */
 void SidebarClipboardPlugin::initTrayIcon(QIcon icon)
 {
@@ -173,6 +194,7 @@ void SidebarClipboardPlugin::createWidget()
     m_pShortcutOperationListWidget = new ClipBoardLisetWidget;
     m_pShortcutOperationListWidget->setContentsMargins(16, 0, 16, 0);
     m_pShortcutOperationListWidget->setFixedWidth(344);
+    m_pShortcutOperationListWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
     m_pSearchWidgetListWidget      = new QListWidget;
     m_pSearchWidgetListWidget->setFixedSize(400, 42);
@@ -319,21 +341,21 @@ void SidebarClipboardPlugin::AddWidgetEntry(OriginalDataHashValue *s_pDataHashVa
     } else if (s_pDataHashValue->Clipbaordformat == IMAGE) {
         int width = w->m_pCopyDataLabal->width();
         int height = w->m_pCopyDataLabal->height();
+        int pixmapWidth = s_pDataHashValue->p_pixmap->width();
+        int pixmapHeigh = s_pDataHashValue->p_pixmap->height();
+        QString formatString = QStringLiteral("%1*%2").arg(pixmapWidth).arg(pixmapHeigh);
         QPixmap fitpixmap = (*s_pDataHashValue->p_pixmap).scaled(width, height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);  // 饱满填充
         w->m_pCopyDataLabal->setPixmap(fitpixmap);
+        w->m_pInforLabel->setText(formatString);
     } else if (s_pDataHashValue->Clipbaordformat == URL) {
         w->m_pCopyDataLabal->setTextFormat(Qt::PlainText);
-        qDebug() << "当前的个数" << s_pDataHashValue->urls.size();
-        // 当有多个文件时，显示特定图标，和特定的字符串显示
-        QString specificText = setSpecificString(text);
-        qDebug() << "specificText--->" << specificText;
-        specificText = setMiddleFormatBody(specificText, w);
-        w->m_pCopyDataLabal->setText(specificText);
-        // 获取QPixmap链表
-        getPixmapListFileIcon(text, w->m_pCopyFileIcon);
+        QString specificText = setSpecificString(text);         // 当有多个文件时，显示特定图标，和特定的字符串显示
+        QString formatUrl = setMiddleFormatBody(specificText, w);
+        w->m_pCopyDataLabal->setText(formatUrl);
+        getPixmapListFileIcon(text, w->m_pCopyFileIcon);        // 获取QPixmap链表
     }
     if (s_pDataHashValue->associatedDb == DBDATA) {
-        w->m_bWhetherFix = true; // 数据库加载的都需要置为已经固定
+        w->m_bWhetherFix = true;                                // 数据库加载的都需要置为已经固定
         w->m_pLockButton->setVisible(false);
         w->m_pCancelLockButton->setVisible(false);
     }
@@ -347,13 +369,14 @@ void SidebarClipboardPlugin::setCopyDataSize(OriginalDataHashValue *s_pDataHashV
     if (s_pDataHashValue->Clipbaordformat == TEXT) {
         int size = s_pDataHashValue->text.size();
         formatString = QStringLiteral("%1%2").arg(size).arg(QObject::tr("字符"));
+        w->m_pInforLabel->setText(formatString);
     } else if (s_pDataHashValue->Clipbaordformat == IMAGE) {
         formatString = QObject::tr("无信息");
     } else if (s_pDataHashValue->Clipbaordformat == URL) {
         int count = s_pDataHashValue->text.split("\n").size();
         formatString = QStringLiteral("%1%2").arg(count).arg(QObject::tr("个文件"));
+        w->m_pInforLabel->setText(formatString);
     }
-    w->m_pInforLabel->setText(formatString);
     return;
 }
 
@@ -381,7 +404,6 @@ QString SidebarClipboardPlugin::SetFormatBody(QString text, ClipboardWidgetEntry
     if (fontSize > LableWidth*(LableHeight/pixelsHigh) - 150) {
         for (int i = 0; i < count; i++) {
             int LineTextSize = fontMetrics.width(formatBodyList[i]);
-//            qDebug() << "当前的字符宽度" << LineTextSize << "当前的行宽" << LableWidth;
             if (LineTextSize > LableWidth) {
                 tmp[i] = (LineTextSize/LableWidth) + 1;
                 qDebug() << "tmp[i] " << tmp[i];
@@ -394,8 +416,6 @@ QString SidebarClipboardPlugin::SetFormatBody(QString text, ClipboardWidgetEntry
             if (lineCount >= 5) {
                 lastIndex = i;
                 tmp[5] = lineCount - tmp[i];
-//                qDebug() << "tmp[i] " << tmp[i] << "lastIndex" << lastIndex;
-//                qDebug() << "lineCount" << lineCount;
                 break;
             }
         }
@@ -436,10 +456,56 @@ QString SidebarClipboardPlugin::SetFormatBody(QString text, ClipboardWidgetEntry
     }
 
     QString elidedText = formatBodyList[lastIndex];
-//    qDebug() << "最后一段文本" << formatBodyList[lastIndex];
     elidedText += "aa";
     formatBody += fontMetrics.elidedText(elidedText, Qt::ElideRight, lastTextSize);
     return formatBody;
+}
+
+/* 设置... */
+QString SidebarClipboardPlugin::setElidedString(QString text, ClipboardWidgetEntry *w)
+{
+     QFontMetrics fontMetrics(w->m_pCopyDataLabal->font());
+     int LableWidth = w->m_pCopyDataLabal->width();
+     int fontSize = fontMetrics.width(text);
+     QString formatBody = text;
+     if(fontSize > (LableWidth - 10)) {
+         QStringList list = formatBody.split("\n");
+         if (list.size() >= 2) {
+             //当有几行时，只需要截取第一行就行，在第一行后面加...
+             // 判断第一行是否是空行
+             formatBody = judgeBlankLine(list);
+             formatBody = formatBody + "aa";
+             int oneFontSize = fontMetrics.width(formatBody);
+             if (oneFontSize > (LableWidth - 10)) {
+                 formatBody = fontMetrics.elidedText(formatBody, Qt::ElideRight, LableWidth - 10);
+                 return formatBody;
+             } else {
+                 if (!substringSposition(formatBody, list)) {
+                     int oneFontSize = fontMetrics.width(formatBody);
+                     formatBody = fontMetrics.elidedText(formatBody, Qt::ElideRight, oneFontSize - 1);
+                     return formatBody;
+                 }
+             }
+         } else {
+             //说明只存在一行，在最后面加...就行
+             formatBody = fontMetrics.elidedText(formatBody, Qt::ElideRight, LableWidth - 10);
+             return formatBody;
+         }
+     } else {
+         QStringList list = formatBody.split("\n");
+         if (list.size() >= 2) {
+             //取得当前的有字符串的子串
+             formatBody = judgeBlankLine(list);
+             formatBody = formatBody + "aa";
+             if (!substringSposition(formatBody, list)) {
+                 int oneFontSize = fontMetrics.width(formatBody);
+                 formatBody = fontMetrics.elidedText(formatBody, Qt::ElideRight, oneFontSize - 1);
+             }
+         }
+     }
+     return formatBody;
+
+
 }
 
 void SidebarClipboardPlugin::getPixmapListFileIcon(QString UrlText, pixmapLabel *pixmapListclass)
@@ -469,7 +535,7 @@ QString SidebarClipboardPlugin::setMiddleFormatBody(QString text, ClipboardWidge
     int fontSize = fontMetrics.width(text);
     QString formatBody = text;
     if (fontSize > (LableWidth - 20)) {
-        formatBody = fontMetrics.elidedText(formatBody, Qt::ElideMiddle, LableWidth - 20);
+        formatBody = fontMetrics.elidedText(formatBody, Qt::ElideMiddle, LableWidth - 5);
         return formatBody;
     }
     return formatBody;

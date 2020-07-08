@@ -84,7 +84,6 @@ public:
     bool         m_bWhetherFix = false;
 
     QString SetFormatBody(QString text);
-    QString setMiddleFormatBody(QString text);
     QString judgeBlankLine(QStringList list);                               /* 去除掉空行，显示有字体的行 */
 
     void    initPushbutton();                                               /* 初始化三个按钮 */

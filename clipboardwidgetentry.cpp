@@ -131,6 +131,7 @@ void ClipboardWidgetEntry::initLable()
         m_pCopyDataLabal->setContentsMargins(3, 0, 0, 0);
     } else if (m_dataFormat == ENTRYURL) {
         m_pCopyDataLabal->setFixedHeight(20);
+        m_pCopyDataLabal->setFixedWidth(328);
         m_pCopyDataLabal->setContentsMargins(0, 0, 0, 0);
     } else if (m_dataFormat == ENTRYIMAGE) {
         m_pCopyDataLabal->setFixedHeight(160);
@@ -173,9 +174,10 @@ void ClipboardWidgetEntry::initdataDisplayArea()
 
         m_pdataVLayout->addWidget(m_pPixlabelWidget);
         m_pCopyDataLabal->setFixedHeight(20);
+        m_pCopyDataLabal->setFixedWidth(328);
         m_pCopyDataLabal->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     }
-    m_pdataVLayout->addWidget(m_pCopyDataLabal);
+    m_pdataVLayout->addWidget(m_pCopyDataLabal, 0, Qt::AlignHCenter);
     return;
 }
 
@@ -295,19 +297,6 @@ void ClipboardWidgetEntry::mousePressEvent(QMouseEvent *event)
 void ClipboardWidgetEntry::mouseDoubleClickEvent(QMouseEvent *event)
 {
     QWidget::mouseDoubleClickEvent(event);
-}
-
-QString ClipboardWidgetEntry::setMiddleFormatBody(QString text)
-{
-    QFontMetrics fontMetrics(m_pCopyDataLabal->font());
-    int LableWidth = m_pCopyDataLabal->width();
-    int fontSize = fontMetrics.width(text);
-    QString formatBody = text;
-    if (fontSize > (LableWidth - 20)) {
-        formatBody = fontMetrics.elidedText(formatBody, Qt::ElideMiddle, LableWidth - 20);
-        return formatBody;
-    }
-    return formatBody;
 }
 
 /* 去除掉空行，显示有字体的行 */

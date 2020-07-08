@@ -10,7 +10,7 @@ OutWidget::~OutWidget()
 
 }
 
-void OutWidget::paintEvent(QPaintEvent *)
+void OutWidget::paintEvent(QPaintEvent *e)
 {
     QStyleOption opt;
     opt.init(this);
@@ -28,4 +28,5 @@ void OutWidget::paintEvent(QPaintEvent *)
     p.drawRoundedRect(opt.rect, 7, 7);
     p.drawRect(opt.rect);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    QWidget::paintEvent(e);
 }

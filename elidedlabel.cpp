@@ -99,6 +99,7 @@ void ElidedLabel::paintEvent(QPaintEvent *event)
         } else {
             QString lastLine = content.mid(line.textStart());
             QString elidedLastLine = fontMetrics.elidedText(lastLine, Qt::ElideRight, width());
+//            int x = (this->width() + elidedLastLine.size())/2 - elidedLastLine.size();
             painter.drawText(QPoint(0, y + fontMetrics.ascent()), elidedLastLine);
             line = textLayout.createLine();
             didElide = line.isValid();

@@ -160,6 +160,7 @@ public:
     QIcon fileSuffixeMatchIcon(int cnt);                                    /* 根据文件名后缀匹配对应的图标 */
     void  getPixmapListFileIcon(QString UrlText, pixmapLabel *pixmapListclass);  /* 多文件时，将图标加入到链表中 */
     QString SetFormatBody(QString text, ClipboardWidgetEntry *w);           /* 设置... */
+    QString setElidedString(QString text, ClipboardWidgetEntry *w);         /* 设置... */
     QString setMiddleFormatBody(QString text, ClipboardWidgetEntry *w);     /* 从文本中间设置... */
     QString setSpecificString(QString text);                                /* 复制多文件时，设置特殊的字符串 */
     QString catUrlFileName(QString Url);                                    /* 截取Url中的文件名 */
@@ -186,6 +187,7 @@ signals:
 
 protected:
     void showEvent(QShowEvent *event);
+    void paintEvent(QPaintEvent *e);
 
 public slots:
     void createWidgetEntry();

@@ -69,8 +69,10 @@ void customstyle_search_pushbutton::drawItemText(QPainter *painter, const QRect 
 void customstyle_search_pushbutton::drawPrimitive(QStyle::PrimitiveElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     if (element == PE_PanelButtonCommand) {
+
         if (widget) {
             if (option->state & State_MouseOver) {
+
                 if (option->state &  State_Sunken) {
                     painter->save();
                     painter->setRenderHint(QPainter::Antialiasing,true);
@@ -81,6 +83,7 @@ void customstyle_search_pushbutton::drawPrimitive(QStyle::PrimitiveElement eleme
                     painter->drawRoundedRect(option->rect, 4, 4);
                     painter->restore();
                 } else {
+                    qDebug() << "111111";
                     painter->save();
                     painter->setRenderHint(QPainter::Antialiasing,true);
                     painter->setPen(Qt::NoPen);
