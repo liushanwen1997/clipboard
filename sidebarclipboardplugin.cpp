@@ -67,6 +67,9 @@ SidebarClipboardPlugin::SidebarClipboardPlugin(QWidget *parent)
     /* 初始化图标 */
     initTrayIcon(QIcon::fromTheme("kylin-tool-box"));
 
+    /* 初始化定时器 */
+    initTimer();
+
     trayIcon->setVisible(true);
 
     this->setWindowIcon(QIcon::fromTheme("kylin-tool-box", QIcon(":/image/kylin-alarm-clock.svg")));
@@ -1370,16 +1373,21 @@ int SidebarClipboardPlugin::setClipBoardWidgetScaleFactor()
 void SidebarClipboardPlugin::OpenClipboardWidget()
 {
     qDebug() << "打开剪贴板";
+    this->show();
+    return;
 }
 
 void SidebarClipboardPlugin::ExitClipboardWidget()
 {
     qDebug() << "退出侧边栏";
+    exit(0);
 }
 
 void SidebarClipboardPlugin::HideClipboardWidget()
 {
     qDebug() << "隐藏侧边栏";
+    this->hide();
+    return;
 }
 
 void SidebarClipboardPlugin::sortingEntrySequence()
@@ -1412,8 +1420,10 @@ void SidebarClipboardPlugin::TimedTriggerUpdateTimeSlots()
     QLocale usLocale = QLocale::system();
     auto dateTime = QDateTime::currentDateTime();
     QString curretTime = usLocale.toString(dateTime.time(),"hh:mm");
+    qDebug() << "当前时间curretTime" << curretTime;
     if (curretTime == "00:00") {
         qDebug() << "更新剪贴板复制时间";
+        updateClipboardDataTime();
     }
 }
 
